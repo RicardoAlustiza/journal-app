@@ -26,7 +26,7 @@ export const LogInPage = () => {
           </Grid2>
 
 
-          <Grid2 container spacing={ 2 } size={{ xs: 12 }} sx={{ marginBottom: 2, marginTop: 3 }}>
+          <Grid2 container spacing={2} size={{ xs: 12 }} sx={{ marginBottom: 2, marginTop: 3 }}>
             <Grid2 size={{ xs: 12, sm: 6 }}>
               <Button variant="contained" fullWidth>
                 Log In
