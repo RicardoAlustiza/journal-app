@@ -1,7 +1,7 @@
-import { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useMemo, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link as RouterLink } from 'react-router-dom'
-import { Button, Grid2, Link, TextField, Typography } from '@mui/material'
+import { Button, Grid2, Link, TextField, Typography, Alert } from '@mui/material'
 import { AuthLayout } from '../layout/AuthLayout'
 import { useForm } from '../../hooks'
 import { startCreatingUserWithEmailPassword } from '../../store/auth'
@@ -21,8 +21,10 @@ const formValidations = {
 export const RegisterPage = () => {
 
   const dispatch = useDispatch()
-
   const [formSubmitted, setFormSubmitted] = useState(false);
+
+  const {status, errorMessage} = useSelector(state => state.auth)
+  const isAuthenticating = useMemo(() => status === 'checking', [status])
 
   const {displayName, email, password, onInputChange, formState,
     isFormValid, displayNameValid, emailValid, passwordValid
@@ -81,10 +83,23 @@ export const RegisterPage = () => {
             />
           </Grid2>
 
+          <Grid2 
+            container
+            spacing={2}
+            size={{ xs: 12 }}
+            sx={{ marginBottom: 2, marginTop: 3 }}
+            display={!!errorMessage ? '' : 'none'}
+          >
+            <Grid2 size={{ xs: 12 }}>
+              <Alert severity="error">
+                {errorMessage}
+              </Alert>
+            </Grid2>
+          </Grid2>
 
           <Grid2 container spacing={2} size={{ xs: 12 }} sx={{ marginBottom: 2, marginTop: 3 }}>
             <Grid2 size={{ xs: 12 }}>
-              <Button type="submit" variant="contained" fullWidth>
+              <Button disabled={isAuthenticating} type="submit" variant="contained" fullWidth>
                 Create Account
               </Button>
             </Grid2>
