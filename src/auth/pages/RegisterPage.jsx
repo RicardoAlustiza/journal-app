@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Link as RouterLink } from 'react-router-dom'
 import { Button, Grid2, Link, TextField, Typography } from '@mui/material'
 import { AuthLayout } from '../layout/AuthLayout'
@@ -9,14 +10,26 @@ const formData = {
   displayName: '',
 }
 
+const formValidations = {
+  email: [(value) => value.includes('@'), 'Email must contain @'],
+  password: [(value) => value.length >= 6, 'Password must be at least 6 characters'],
+  displayName: [(value) => value.length > 0, 'Name is required'],
+}
+
 export const RegisterPage = () => {
 
-  const {displayName, email, password, onInputChange, formState} = useForm(formData);
+  const [formSubmitted, setFormSubmitted] = useState(false);
+
+  const {displayName, email, password, onInputChange, formState,
+    isFormValid, displayNameValid, emailValid, passwordValid
+  } = useForm(formData, formValidations);
 
   const onSubmit = (e) => {
     e.preventDefault();
 
-    console.log(formState);
+    if (isFormValid) {
+      setFormSubmitted(true);
+    }
   }
 
   return (
@@ -32,6 +45,8 @@ export const RegisterPage = () => {
               name="displayName"
               value={displayName}
               onChange={onInputChange}
+              error = { !!displayNameValid && formSubmitted }
+              helperText={ displayNameValid }
             />
           </Grid2>
           <Grid2 size={{ xs: 12 }} sx={{ marginTop: 2 }}>
@@ -43,6 +58,8 @@ export const RegisterPage = () => {
               name="email"
               value={email}
               onChange={onInputChange}
+              error = { !!emailValid && formSubmitted }
+              helperText={ emailValid }
             />
           </Grid2>
           <Grid2 size={{ xs: 12 }} sx={{ marginTop: 2 }}>
@@ -54,6 +71,8 @@ export const RegisterPage = () => {
               name="password"
               value={password}
               onChange={onInputChange}
+              error = { !!passwordValid && formSubmitted }
+              helperText={ passwordValid }
             />
           </Grid2>
 
