@@ -41,7 +41,7 @@ export const RegisterPage = () => {
 
   return (
     <AuthLayout title="Register">
-      <form onSubmit={onSubmit}>
+      <form onSubmit={onSubmit} className="animate__animated animate__fadeIn animate__faster">
         <Grid2 container>
           <Grid2 size={{ xs: 12 }} sx={{ marginTop: 2 }}>
             <TextField 
