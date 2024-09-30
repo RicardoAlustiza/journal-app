@@ -1,16 +1,17 @@
 import { useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link as RouterLink } from 'react-router-dom'
-import { Button, Grid2, Link, TextField, Typography } from '@mui/material'
+import { Button, Grid2, Link, TextField, Typography, Alert } from '@mui/material'
 import { Google } from '@mui/icons-material'
 import { AuthLayout } from '../layout/AuthLayout'
 import { useForm } from '../../hooks'
-import { checkingAuthentication, startGoogleSignIn } from '../../store/auth'
+import { startGoogleSignIn } from '../../store/auth'
+import { startLoginUserWithEmailPassword } from '../../store/auth'
 
 export const LogInPage = () => {
 
   const dispatch = useDispatch()
-  const { status } = useSelector(state => state.auth)
+  const { status, errorMessage } = useSelector(state => state.auth)
 
   const {email, password, onInputChange} = useForm({
     email: '',
@@ -23,7 +24,7 @@ export const LogInPage = () => {
     e.preventDefault();
     console.log({ email, password });
 
-    dispatch(checkingAuthentication())
+    dispatch(startLoginUserWithEmailPassword({ email, password }))
   }
 
   const onGoogleSignIn = () => {
@@ -57,6 +58,19 @@ export const LogInPage = () => {
             />              
           </Grid2>
 
+          <Grid2 
+            container
+            spacing={2}
+            size={{ xs: 12 }}
+            sx={{ marginBottom: 2, marginTop: 3 }}
+            display={!!errorMessage ? '' : 'none'}
+          >
+            <Grid2 size={{ xs: 12, sm: 6 }}>
+              <Alert severity="error">
+                Invalid credentials
+              </Alert>
+            </Grid2>
+          </Grid2>
 
           <Grid2 container spacing={2} size={{ xs: 12 }} sx={{ marginBottom: 2, marginTop: 3 }}>
             <Grid2 size={{ xs: 12, sm: 6 }}>
