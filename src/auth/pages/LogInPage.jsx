@@ -22,7 +22,6 @@ export const LogInPage = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log({ email, password });
 
     dispatch(startLoginUserWithEmailPassword({ email, password }))
   }
