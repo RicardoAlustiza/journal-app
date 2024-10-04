@@ -6,11 +6,13 @@ import { useForm } from '../../hooks'
 import { useSelector, useDispatch } from 'react-redux'
 import { setActiveNote } from '../../store/journal'
 import { startSaveNote } from '../../store/journal/thunks'
+import Swal from 'sweetalert2'
+import 'sweetalert2/dist/sweetalert2.css'
 
 export const NoteView = () => {
 
     const dispatch = useDispatch()
-    const { activeNote } = useSelector(state => state.journal)
+    const { activeNote, savedMessage, isSaving } = useSelector(state => state.journal)
     const { body, title, date, onInputChange, formState } = useForm(activeNote);
 
     const dateString = useMemo(() => {
@@ -22,6 +24,12 @@ export const NoteView = () => {
     useEffect(() => {
         dispatch(setActiveNote(formState));
     }, [formState])
+
+    useEffect(() => {
+        if(savedMessage.length > 0) {
+            Swal.fire('Saved!', savedMessage, 'success');
+        }
+    }, [savedMessage])
 
     const onSaveNote = () => {
         dispatch(startSaveNote());
@@ -46,6 +54,7 @@ export const NoteView = () => {
                 color="primary"
                 sx={{ padding: 2 }}
                 onClick={onSaveNote}
+                disabled={isSaving}
             >
                 <SaveOutlined sx={{ fontSize: 30, marginRight: 1 }}/>
                 Guardar
