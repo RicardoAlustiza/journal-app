@@ -8,7 +8,7 @@ export const ImageGallery = ({images}) => {
           <img
             srcSet={`${image}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
             src={`${image}?w=164&h=164&fit=crop&auto=format`}
-            alt="Imagen de la note"
+            alt={`Note image ${image}`}
             loading="lazy"
           />
         </ImageListItem>
