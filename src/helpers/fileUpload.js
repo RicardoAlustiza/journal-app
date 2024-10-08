@@ -1,10 +1,16 @@
+import { getEnvironments } from './getEnvironments';
+
 export const fileUpload = async (file) => {
+
+    const {
+        VITE_CLOUDINARY_CLOUD_NAME  
+    } = getEnvironments();
 
     if(!file) {
         return null;
     }
 
-    const cloudUrl = `https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDINARY_CLOUD_NAME}/upload`;
+    const cloudUrl = `https://api.cloudinary.com/v1_1/${VITE_CLOUDINARY_CLOUD_NAME}/upload`;
 
     const formData = new FormData();
     formData.append('upload_preset', 'react-journal');
