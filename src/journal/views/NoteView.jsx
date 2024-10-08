@@ -87,7 +87,7 @@ export const NoteView = () => {
                 disabled={isSaving}
             >
                 <SaveOutlined sx={{ fontSize: 30, marginRight: 1 }}/>
-                Guardar
+                Save changes
             </Button>
         </Grid2>
 
