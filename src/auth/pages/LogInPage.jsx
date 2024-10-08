@@ -80,7 +80,13 @@ export const LogInPage = () => {
               </Button>
             </Grid2>
             <Grid2 size={{ xs: 12, sm: 6 }}>
-              <Button  onClick={onGoogleSignIn} variant="contained" fullWidth disabled={isAuthenticating}>
+              <Button  
+                onClick={onGoogleSignIn}
+                variant="contained"
+                fullWidth
+                disabled={isAuthenticating}
+                aria-label='google-btn'
+              >
                 <Google />
                 <Typography sx={{ marginLeft: 1 }}>Google</Typography>
               </Button>
