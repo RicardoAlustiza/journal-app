@@ -1,7 +1,8 @@
 import { checkingCredentials, login, logout } from '../../../src/store/auth/authSlice';
-import { checkingAuthentication, startGoogleSignIn } from '../../../src/store/auth/thunks';
+import { checkingAuthentication, startGoogleSignIn, startCreatingUserWithEmailPassword, startLoginUserWithEmailPassword, startLogOut } from '../../../src/store/auth/thunks';
 import { testUser } from '../../fixtures/authFixtures';
-import { logOutFirebase, registerUserWithEmailAndPassword, signInWithGoogle } from '../../../src/firebase/providers';
+import { logOutFirebase, registerUserWithEmailAndPassword, signInWithGoogle, logInUserWithEmailPassword } from '../../../src/firebase/providers';
+import { clearNotesLogOut } from '../../../src/store/journal';
 
 jest.mock('../../../src/firebase/providers');
 
