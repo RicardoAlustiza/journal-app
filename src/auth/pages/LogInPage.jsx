@@ -34,7 +34,11 @@ export const LogInPage = () => {
 
   return (
     <AuthLayout title="Log In">
-      <form onSubmit={onSubmit} className="animate__animated animate__fadeIn animate__faster">
+      <form 
+        onSubmit={onSubmit}
+        className="animate__animated animate__fadeIn animate__faster"
+        aria-label='submit-form'
+      >
         <Grid2 container>
           <Grid2 size={{ xs: 12 }} sx={{ marginTop: 2 }}>
             <TextField 
@@ -55,6 +59,9 @@ export const LogInPage = () => {
               fullWidth
               name="password"
               value={password}
+              slotProps={{
+                'data-testid': 'password'
+              }}
               onChange = {onInputChange}
             />              
           </Grid2>
